@@ -1,6 +1,6 @@
-class CreateCategories < ActiveRecord::Migration[7.0]
+class CreateTasks < ActiveRecord::Migration[7.0]
   def change
-    create_table :categories do |t|
+    create_table :tasks do |t|
       t.string :name
       t.string :details
 
