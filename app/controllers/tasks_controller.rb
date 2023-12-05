@@ -1,49 +1,30 @@
 class TasksController < ApplicationController
-    def index
-        @tasks = Task.all.order("created_at DESC")
-    end
-
-    def show
-        @task = Task.find(params[:id])
-    end
-
-    def new
-        @task = Task.new
-    end
-
-    def edit
-        @task = Task.find(params[:id])
-    end
+    before_action :find_category
 
     def create
-        @task = Task.new(task_params)
-
-        if @task.save
-            redirect_to @task
-        else
-            render 'new'
-        end
-    end
-
-    def update
-        @task = Task.find(params[:id])
-
-        if @task.update(task_params)
-            redirect_to @task
-        else
-            render 'edit'
-        end
+        @task = @category.tasks.create(task_params)
+        redirect_to category_path(@category)
     end
 
     def destroy
-        @task = Task.find(params[:id])
+        @task = @category.tasks.find(params[:id])
         @task.destroy
+        redirect_to category_path(@category)
+    end
 
-        redirect_to tasks_path
+    def update
+        @task = @category.tasks.find(params[:id])
+        @task.update(task_params)
+        redirect_to category_path(@category)
     end
 
     private
-        def task_params
-            params.require(:task).permit(:name, :details)
-        end
+
+    def task_params
+        params.require(:task).permit(:title, :description)
+    end
+
+    def find_category
+        @category = Category.find(params[:category_id])
+    end
 end
