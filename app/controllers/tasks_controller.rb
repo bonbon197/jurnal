@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
     before_action :find_category
+    before_action :authenticate_user!
 
     def create
         @task = @category.tasks.create(task_params)
@@ -12,6 +13,10 @@ class TasksController < ApplicationController
         redirect_to category_path(@category)
     end
 
+    def edit
+        @task = @category.tasks.find(params[:id])
+    end
+
     def update
         @task = @category.tasks.find(params[:id])
         @task.update(task_params)
@@ -21,7 +26,7 @@ class TasksController < ApplicationController
     private
 
     def task_params
-        params.require(:task).permit(:title, :description)
+        params.require(:task).permit(:name, :details)
     end
 
     def find_category

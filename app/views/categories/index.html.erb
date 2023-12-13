@@ -1,3 +1,42 @@
-# make a basic categories index page
+<% content_for :page_title, "Jurnal" %>
+<section class="section">
+<div class="container">
+    <h1 class="title">Categories</h1>
+    <p class="subtitle">A list of all categories</p>
+    <%= link_to "Create new Category", new_category_path, class: "button is-primary" %>
+    <hr />
+    <div class="columns is-desktop">
+      <% @categories.each do |category| %>
+        <div class="column">
+          <div class="card">
+            <div class="card-content">
 
-<h1>Categories</h1>
+              <div class="media">
+                <div class="media-content">
+                  <h2 class="title is-2"><%= link_to category.name, category %></h2>
+                </div>
+              </div>
+
+              <div class="content">
+                <%= category.details %>
+              </div>
+
+              <div class="comment-count">
+                <span class="tag is-rounded"> <%= category.tasks.count %> tasks</span>
+              </div>
+
+              <hr />
+
+              <%= render partial: 'tasks/task', collection: category.tasks.first(5), as: :task, locals: { category: category } %>
+
+              <% if category.tasks.count > 5 %>
+                  <%= link_to "Show all tasks", category_tasks_path(category), class: "button is-info" %>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+</div>
+</section>

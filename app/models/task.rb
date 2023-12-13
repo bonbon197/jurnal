@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
-    validates :title, presence: true, length: { minimum: 5, maximum: 255 }
+    validates :name, presence: true, length: { minimum: 2, maximum: 255 }
+    validates :details, presence: true, length: { minimum: 2, maximum: 255 }
+    belongs_to :user
     belongs_to :category
 end

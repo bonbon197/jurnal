@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <h2 class="title is-4"><%= task.name %></h2>
+                <p class="subtitle is-6">
+                    <%= task.details %> <br />
+                </p>
+                <%= link_to 'Edit', edit_category_task_path(category, task), class: "button is-small is-info is-light" %>
+
+                <%= button_to 'Delete', [category, task], method: :delete, class: "button is-small is-danger is-light", data: { confirm: "Ya sure?" } %>
+
+            </div>
+        </div>
+    </div>
+</div>

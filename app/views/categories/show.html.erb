@@ -1,0 +1,47 @@
+<% content_for :page_title, @category.name%>
+<section class="section">
+    <div class="container">
+
+            <nav class="level">
+                <!-- Left -->
+                <div class="level-left">
+                    <p class="level-item">
+                        <strong>Actions</strong>
+                    </p>
+                </div>
+
+                <!-- Right -->
+                <div class="level-right">
+                    <p class="level-item">
+                        <%= link_to "Edit", edit_category_path(@category), class: "button" %>
+                    </p>
+                    <p class="level-item">
+                        <%= link_to "Delete", category_path(@category), method: :delete, data: { confirm: "Ya sure?" }, class: "button is-danger" %>
+                    </p>
+                </div>
+            </nav>
+            <hr />
+
+            <div class="content">
+                <%= @category.details %>
+            </div>
+        
+    </div>
+</section>
+
+<section class="section comments">
+    <div class="container">
+        <h2 class="subtitle is-5">
+            <strong><%= @category.tasks.count %> Tasks</strong>
+        </h2>
+        <% @category.tasks.each do |task| %>
+            <%= render partial: 'tasks/task', locals: { category: @category, task: task } %>
+        <% end %>
+
+        <div class="comment-form">
+            <hr/>
+            <h3 class="subtitle is-3">Add a new Task</h3>
+            <%= render 'tasks/form' %>
+        </div>
+    </div>
+</section>
